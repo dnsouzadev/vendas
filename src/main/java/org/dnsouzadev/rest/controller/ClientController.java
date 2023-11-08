@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api/clientes")
 public class ClientController {
     private final Clientes clientes;
@@ -21,21 +21,18 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<Cliente> getClienteById( @PathVariable Integer id) {
         Optional<Cliente> cliente = clientes.findById(id);
         return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("")
-    @ResponseBody
+    @PostMapping
     public ResponseEntity<Cliente> save( @RequestBody Cliente cliente ) {
         Cliente clienteSalvo = clientes.save(cliente);
         return ResponseEntity.ok(clienteSalvo);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<Void> delete (@PathVariable Integer id ) {
         Optional<Cliente> cliente = clientes.findById(id);
         if (cliente.isPresent()) {
@@ -46,7 +43,6 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<Cliente> update (@PathVariable Integer id, @RequestBody Cliente cliente ) {
         Optional<Cliente> clienteAntigo = clientes.findById(id);
         if (clienteAntigo.isPresent()){
@@ -60,7 +56,7 @@ public class ClientController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<Cliente>> find( Cliente filtro ) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
