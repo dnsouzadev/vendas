@@ -1,18 +1,26 @@
 package org.dnsouzadev.rest.controller;
 
+import org.dnsouzadev.domain.entity.Cliente;
+import org.dnsouzadev.domain.repository.Clientes;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/clientes")
 public class ClientController {
+    private final Clientes clientes;
 
-    @RequestMapping(value = "/hello/{nome}", method = RequestMethod.GET)
+    public ClientController( Clientes clientes ) {
+        this.clientes = clientes;
+    }
+
+    @GetMapping("/{id}")
     @ResponseBody
-    public String helloCliente( @PathVariable("nome") String nomeCliente ) {
-        return String.format("Hello %s ", nomeCliente);
+    public ResponseEntity<Cliente> getClienteById( @PathVariable Integer id) {
+        Optional<Cliente> cliente = clientes.findById(id);
+        return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
