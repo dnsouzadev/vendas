@@ -17,8 +17,6 @@ public class ClientController {
         this.clientes = clientes;
     }
 
-    
-
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Cliente> getClienteById( @PathVariable Integer id) {
@@ -42,5 +40,20 @@ public class ClientController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> update (@PathVariable Integer id, @RequestBody Cliente cliente ) {
+        Optional<Cliente> clienteAntigo = clientes.findById(id);
+        if (clienteAntigo.isPresent()){
+            cliente.setId(id);
+            clientes.save(cliente);
+
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
