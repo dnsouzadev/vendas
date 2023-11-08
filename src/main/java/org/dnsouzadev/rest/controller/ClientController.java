@@ -17,6 +17,8 @@ public class ClientController {
         this.clientes = clientes;
     }
 
+    
+
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Cliente> getClienteById( @PathVariable Integer id) {
@@ -29,5 +31,16 @@ public class ClientController {
     public ResponseEntity<Cliente> save( @RequestBody Cliente cliente ) {
         Cliente clienteSalvo = clientes.save(cliente);
         return ResponseEntity.ok(clienteSalvo);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Void> delete (@PathVariable Integer id ) {
+        Optional<Cliente> cliente = clientes.findById(id);
+        if (cliente.isPresent()) {
+            clientes.delete( cliente.get() );
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
