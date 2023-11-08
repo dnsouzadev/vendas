@@ -23,4 +23,11 @@ public class ClientController {
         Optional<Cliente> cliente = clientes.findById(id);
         return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @PostMapping("")
+    @ResponseBody
+    public ResponseEntity<Cliente> save( @RequestBody Cliente cliente ) {
+        Cliente clienteSalvo = clientes.save(cliente);
+        return ResponseEntity.ok(clienteSalvo);
+    }
 }
