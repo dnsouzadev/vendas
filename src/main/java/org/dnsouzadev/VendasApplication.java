@@ -23,7 +23,7 @@ public class VendasApplication {
     ) {
         return args -> {
             System.out.println("Salvando clientes");
-            Cliente fulano = new Cliente("Fulano");
+            Cliente fulano = new Cliente(null, "Fulano", "1111111111");
             clientes.save(fulano);
 
             Pedido p = new Pedido();
