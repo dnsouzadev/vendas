@@ -37,7 +37,7 @@ public class ProdutoController {
         Optional<Produto> produto = produtos.findById(id);
         return produto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
+
     @PostMapping
     public ResponseEntity<Produto> create(@RequestBody Produto produto) {
         Produto produtoSalvo = produtos.save(produto);
