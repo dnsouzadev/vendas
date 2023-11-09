@@ -6,6 +6,7 @@ import org.dnsouzadev.domain.entity.Cliente;
 import org.dnsouzadev.domain.entity.ItemPedido;
 import org.dnsouzadev.domain.entity.Pedido;
 import org.dnsouzadev.domain.entity.Produto;
+import org.dnsouzadev.domain.enuns.StatusPedido;
 import org.dnsouzadev.domain.repository.Clientes;
 import org.dnsouzadev.domain.repository.ItemsPedido;
 import org.dnsouzadev.domain.repository.Pedidos;
@@ -42,6 +43,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
         repository.save(pedido);
