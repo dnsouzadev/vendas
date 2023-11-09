@@ -26,7 +26,7 @@ public class VendasApplication {
             ) {
         return args -> {
             System.out.println("Salvando clientes");
-            Cliente fulano = new Cliente(null, "Fulano", "1111111111");
+            Cliente fulano = new Cliente(null, "Fulano", "45121370504");
             clientes.save(fulano);
             Produto produto = new Produto(null, "Cadeira", new BigDecimal("500.00"));
             produtos.save(produto);
