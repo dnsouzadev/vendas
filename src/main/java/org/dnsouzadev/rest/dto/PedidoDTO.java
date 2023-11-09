@@ -1,5 +1,6 @@
 package org.dnsouzadev.rest.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoDTO {
+    @NotNull(message = "Informe o codigo do cliente")
     private Integer cliente;
+    @NotNull(message = "campo total do pedido e obrigatorio")
     private BigDecimal total;
     private List<ItemPedidoDTO> items;
 }

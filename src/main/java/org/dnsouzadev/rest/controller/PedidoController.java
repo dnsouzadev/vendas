@@ -1,5 +1,6 @@
 package org.dnsouzadev.rest.controller;
 
+import jakarta.validation.Valid;
 import org.dnsouzadev.domain.entity.ItemPedido;
 import org.dnsouzadev.domain.entity.Pedido;
 import org.dnsouzadev.domain.enuns.StatusPedido;
@@ -33,7 +34,7 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer save(@RequestBody PedidoDTO dto) {
+    public Integer save(@RequestBody @Valid PedidoDTO dto) {
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
