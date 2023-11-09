@@ -1,5 +1,6 @@
 package org.dnsouzadev.rest.controller;
 
+import jakarta.validation.Valid;
 import org.dnsouzadev.domain.entity.Cliente;
 import org.dnsouzadev.domain.repository.Clientes;
 import org.springframework.data.domain.Example;
@@ -27,7 +28,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> save( @RequestBody Cliente cliente ) {
+    public ResponseEntity<Cliente> save( @RequestBody @Valid Cliente cliente ) {
         Cliente clienteSalvo = clientes.save(cliente);
         return ResponseEntity.ok(clienteSalvo);
     }
