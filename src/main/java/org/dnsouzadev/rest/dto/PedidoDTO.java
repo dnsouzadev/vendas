@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dnsouzadev.validation.NotEmptyList;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,5 +29,6 @@ public class PedidoDTO {
     private Integer cliente;
     @NotNull(message = "campo total do pedido e obrigatorio")
     private BigDecimal total;
+    @NotEmptyList(message = "A list nao pode ser vazia")
     private List<ItemPedidoDTO> items;
 }
