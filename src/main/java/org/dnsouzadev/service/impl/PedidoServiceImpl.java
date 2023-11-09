@@ -11,6 +11,7 @@ import org.dnsouzadev.domain.repository.Clientes;
 import org.dnsouzadev.domain.repository.ItemsPedido;
 import org.dnsouzadev.domain.repository.Pedidos;
 import org.dnsouzadev.domain.repository.Produtos;
+import org.dnsouzadev.exception.PedidoNaoEncontradoException;
 import org.dnsouzadev.exception.RegraNegocioException;
 import org.dnsouzadev.rest.dto.ItemPedidoDTO;
 import org.dnsouzadev.rest.dto.PedidoDTO;
@@ -55,6 +56,17 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return repository.findByIdFetchItens(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        repository
+                .findById(id)
+                .map( pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return repository.save(pedido);
+                }).orElseThrow(PedidoNaoEncontradoException::new);
     }
 
     private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> items){

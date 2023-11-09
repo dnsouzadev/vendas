@@ -2,6 +2,8 @@ package org.dnsouzadev.rest.controller;
 
 import org.dnsouzadev.domain.entity.ItemPedido;
 import org.dnsouzadev.domain.entity.Pedido;
+import org.dnsouzadev.domain.enuns.StatusPedido;
+import org.dnsouzadev.rest.dto.AtualizacaoStatusPedidoDTO;
 import org.dnsouzadev.rest.dto.InformacaoItemPedidoDTO;
 import org.dnsouzadev.rest.dto.InformacoesPedidoDTO;
 import org.dnsouzadev.rest.dto.PedidoDTO;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -42,6 +45,15 @@ public class PedidoController {
                 .map(this::converter)
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, "Pedido Nao Encontrado"));
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus( @RequestBody AtualizacaoStatusPedidoDTO dto ,
+                              @PathVariable Integer id) {
+        String novoStatus = dto.getNovoStatus();
+        service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+
     }
 
     private InformacoesPedidoDTO converter(Pedido pedido) {
