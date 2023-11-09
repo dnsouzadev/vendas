@@ -28,11 +28,11 @@ public class Produto {
     public Produto() {}
 
     @Column(name = "descricao")
-    @NotEmpty(message = "Campo descricao e obrigatorio")
+    @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
 
     @Column(name = "preco_unitario")
-    @NotNull(message = "preco e obrigatorio")
+    @NotNull(message = "{campo.preco.obrigatorio}")
     private BigDecimal preco;
 
 }
