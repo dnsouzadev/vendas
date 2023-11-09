@@ -44,7 +44,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> update (@PathVariable Integer id, @RequestBody Cliente cliente ) {
+    public ResponseEntity<Cliente> update (@PathVariable Integer id, @RequestBody @Valid Cliente cliente ) {
         Optional<Cliente> clienteAntigo = clientes.findById(id);
         if (clienteAntigo.isPresent()){
             cliente.setId(id);

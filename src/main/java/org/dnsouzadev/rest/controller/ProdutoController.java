@@ -1,6 +1,7 @@
 package org.dnsouzadev.rest.controller;
 
 
+import jakarta.validation.Valid;
 import org.dnsouzadev.domain.entity.Cliente;
 import org.dnsouzadev.domain.entity.Produto;
 import org.dnsouzadev.domain.repository.Produtos;
@@ -39,13 +40,13 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> create(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> create(@RequestBody @Valid Produto produto) {
         Produto produtoSalvo = produtos.save(produto);
         return ResponseEntity.ok(produtoSalvo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> update(@PathVariable Integer id, @RequestBody Produto produto) {
+    public ResponseEntity<Produto> update(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
         Optional<Produto> produtoAntigo = produtos.findById(id);
         if (produtoAntigo.isPresent()) {
             produto.setId(id);
