@@ -25,18 +25,7 @@ public class VendasApplication {
             @Autowired Produtos produtos
             ) {
         return args -> {
-            System.out.println("Salvando clientes");
-            Cliente fulano = new Cliente(null, "Fulano", "45121370504");
-            clientes.save(fulano);
-            Produto produto = new Produto(null, "Cadeira", new BigDecimal("500.00"));
-            produtos.save(produto);
 
-            Pedido p = new Pedido();
-            p.setCliente(fulano);
-            p.setDataPedido(LocalDate.now());
-            p.setTotal(BigDecimal.valueOf(100));
-
-            pedidos.save(p);
 
 //            Cliente cliente = clientes.findClienteFetchPedidos(fulano.getId());
 //            System.out.println(cliente);
